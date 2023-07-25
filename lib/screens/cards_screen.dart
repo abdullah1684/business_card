@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:business_card/widgets/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CardScreen extends StatefulWidget {
   const CardScreen({super.key});
@@ -18,16 +19,19 @@ class _CardScreenState extends State<CardScreen> {
   var _enteredJobTitle = '';
   var _enteredLocation = '';
   var _enteredPhoneNumber = '';
-  var _enteredWebsite = '';
-  late File _selectedImage;
+  var _enteredEmail = '';
+  var _isCardData = false;
+  File? _selectedImage;
   void _submit() {
     final isValid = _formKey.currentState!.validate();
     if (!isValid && _selectedImage == null) {
       return;
     } else {
       _formKey.currentState!.save();
+
       setState(() {
         _isCardUploading = true;
+        _isCardData = true;
       });
       print(_enteredName);
     }
@@ -165,7 +169,7 @@ class _CardScreenState extends State<CardScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          labelText: "Personal website",
+                          labelText: "Email",
                         ),
                         validator: (value) {
                           if (value == null ||
@@ -177,7 +181,7 @@ class _CardScreenState extends State<CardScreen> {
                           }
                         },
                         onSaved: (newValue) {
-                          _enteredWebsite = newValue!;
+                          _enteredEmail = newValue!;
                         },
                       ),
                     ),
@@ -199,6 +203,7 @@ class _CardScreenState extends State<CardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final deviceData = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -210,9 +215,85 @@ class _CardScreenState extends State<CardScreen> {
         ],
         title: const Text("Your cards"),
       ),
-      body: const Center(
-        child: Text("Cards"),
-      ),
+      body: !_isCardData
+          ? Center(
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                child: Text(
+                  "Create your own business card!",
+                  style: GoogleFonts.quicksand(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            )
+          : Center(
+              child: Container(
+                height: deviceData.height * 0.25,
+                width: deviceData.width * 0.9,
+                child: Card(
+                  color: Theme.of(context).primaryColor,
+                  elevation: 10,
+                  shadowColor: Colors.black54,
+                  child: Column(children: [
+                    const SizedBox(height: 10),
+                    ListTile(
+                      leading: CircleAvatar(
+                        radius: 50,
+                        foregroundImage: FileImage(
+                          _selectedImage!,
+                        ),
+                      ),
+                      title: Text(
+                        _enteredName,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      subtitle: Text(
+                        _enteredJobTitle,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      width: deviceData.width * 0.9,
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.phone,
+                          ),
+                          Text(_enteredPhoneNumber)
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      width: deviceData.width * 0.9,
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.email_rounded,
+                          ),
+                          Text(_enteredEmail)
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      width: deviceData.width * 0.9,
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                          ),
+                          Text(_enteredLocation),
+                        ],
+                      ),
+                    ),
+                  ]),
+                ),
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addCard(context, _submit),
         child: const Icon(Icons.add_card),
