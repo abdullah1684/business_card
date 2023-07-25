@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645748304731",
+    "project_id": "business-card-95ca0",
+    "storage_bucket": "business-card-95ca0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645748304731:android:8d29636bb6b1b63747487e",
+        "android_client_info": {
+          "package_name": "com.example.business_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645748304731-s5423kln1hkn8h79f2h8a0ta8kq6af1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJrMW1Uu0ih3zqe0CosiwCR8s8hn1MuFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645748304731-s5423kln1hkn8h79f2h8a0ta8kq6af1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
