@@ -26,6 +26,33 @@ class _CardScreenState extends State<CardScreen> {
   var _isUploadingCard = false;
   final authUser = FirebaseAuth.instance.currentUser!;
   File? _selectedImage;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() async {
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(authUser.uid)
+        .get();
+    print(userData.data()?['username']);
+    if (userData.data()?['username'] != null) {
+      setState(() {
+        _isCardData = true;
+      });
+
+      _enteredName = userData.data()!['username'];
+      _enteredJobTitle = userData.data()!['jobTitle'];
+      _enteredLocation = userData.data()!['userLocation'];
+      _enteredPhoneNumber = userData.data()!['phoneNumber'];
+      _enteredEmail = userData.data()!['email'];
+      _selectedImage = File(userData.data()!['imageUrl']);
+    }
+  }
+
   void _submit() async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid && _selectedImage == null) {
@@ -257,13 +284,19 @@ class _CardScreenState extends State<CardScreen> {
                   ),
                 ),
               )
-            : BusinessCard(
-                enteredName: _enteredName,
-                jobTitle: _enteredJobTitle,
-                phoneNumber: _enteredPhoneNumber,
-                email: _enteredEmail,
-                location: _enteredLocation,
-                selectedImage: _selectedImage!,
+            : Column(
+                children: [
+                  BusinessCard(
+                    enteredName: _enteredName,
+                    jobTitle: _enteredJobTitle,
+                    phoneNumber: _enteredPhoneNumber,
+                    email: _enteredEmail,
+                    location: _enteredLocation,
+                    selectedImage: _selectedImage!,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text("Save Card")),
+                ],
               ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => _addCard(context, _submit),
