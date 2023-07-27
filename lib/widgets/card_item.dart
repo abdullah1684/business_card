@@ -23,7 +23,7 @@ class BusinessCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceData = MediaQuery.of(context).size;
     return Center(
-      child: Container(
+      child: SizedBox(
         height: deviceData.height * 0.25,
         width: deviceData.width * 0.9,
         child: Card(
@@ -72,7 +72,6 @@ class BusinessCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.all(5),
               width: deviceData.width * 0.9,
               child: Row(
                 children: [
