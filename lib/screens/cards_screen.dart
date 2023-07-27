@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:business_card/widgets/card_item.dart';
 import 'package:business_card/widgets/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -229,70 +230,13 @@ class _CardScreenState extends State<CardScreen> {
                 ),
               ),
             )
-          : Center(
-              child: Container(
-                height: deviceData.height * 0.25,
-                width: deviceData.width * 0.9,
-                child: Card(
-                  color: Theme.of(context).primaryColor,
-                  elevation: 10,
-                  shadowColor: Colors.black54,
-                  child: Column(children: [
-                    const SizedBox(height: 10),
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 50,
-                        foregroundImage: FileImage(
-                          _selectedImage!,
-                        ),
-                      ),
-                      title: Text(
-                        _enteredName,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      subtitle: Text(
-                        _enteredJobTitle,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: deviceData.width * 0.9,
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.phone,
-                          ),
-                          Text(_enteredPhoneNumber)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: deviceData.width * 0.9,
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.email_rounded,
-                          ),
-                          Text(_enteredEmail)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: deviceData.width * 0.9,
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                          ),
-                          Text(_enteredLocation),
-                        ],
-                      ),
-                    ),
-                  ]),
-                ),
-              ),
+          : BusinessCard(
+              enteredName: _enteredName,
+              jobTitle: _enteredJobTitle,
+              phoneNumber: _enteredPhoneNumber,
+              email: _enteredEmail,
+              location: _enteredLocation,
+              selectedImage: _selectedImage!,
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addCard(context, _submit),
