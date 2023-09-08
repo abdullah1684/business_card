@@ -285,17 +285,18 @@ class _CardScreenState extends State<CardScreen> {
                 ),
               )
             : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  BusinessCard(
-                    enteredName: _enteredName,
-                    jobTitle: _enteredJobTitle,
-                    phoneNumber: _enteredPhoneNumber,
-                    email: _enteredEmail,
-                    location: _enteredLocation,
-                    selectedImage: _selectedImage!,
+                  Center(
+                    child: BusinessCard(
+                      enteredName: _enteredName,
+                      jobTitle: _enteredJobTitle,
+                      phoneNumber: _enteredPhoneNumber,
+                      email: _enteredEmail,
+                      location: _enteredLocation,
+                      selectedImage: _selectedImage!,
+                    ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {}, child: const Text("Save Card")),
                 ],
               ),
         floatingActionButton: FloatingActionButton(
