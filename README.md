@@ -17,4 +17,4 @@ A flutter program for a competition by Akoul
  - [Create a digital business card](https://github.com/matiassingers/awesome-readme)
  - [Save the card on the database](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
-![App Screenshot]()
+![App Screenshot](https://github.com/abdullah1684/business_card/assets/74565690/8d8d7628-1bf2-4e5a-ba0e-a0023d64eaa7)
